@@ -1,0 +1,37 @@
+﻿@model CoursesHomeModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Courses</h1>
+
+<a asp-action="Create">Create</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Period</th>
+            <th>Actions</th>
+            <th>edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Courses)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Period Day(s)</td>
+                <td>
+                    <form action="Courses/Delete/@item.Id" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="courses/edit/@item.Id">edit</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

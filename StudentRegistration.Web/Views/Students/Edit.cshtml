@@ -1,0 +1,23 @@
+﻿@model StudentRegistration.Web.Entities.Student
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Create Students</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">
+            <label class="col-form-label" asp-for="Name"></label>
+            <input asp-for="Name" />
+        </div>
+        <div class="col-4">
+            <label class="col-form-label" asp-for="NationalId"></label>
+            <input asp-for="NationalId" />
+        </div>
+        <div class="col-4">
+            <button type="submit">Update</button>
+        </div>
+    </div>
+</form>

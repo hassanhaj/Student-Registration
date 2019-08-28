@@ -1,0 +1,33 @@
+﻿@model StudentRegistration.Web.Models.StudentViewModel
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Students</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">
+            <label class="col-form-label" asp-for="Student.Name"></label>
+            <input asp-for="Student.Name" />
+        </div>
+        <div class="col-4">
+            <label class="col-form-label" asp-for="Student.NationalId"></label>
+            <input asp-for="Student.NationalId" />
+        </div>
+        <div class="col-4">
+            <label class="col-form-label" asp-for="Student.CountryId"></label>
+            <select asp-for="Student.CountryId">
+                @foreach (var c in Model.Countries)
+                {
+                    <option value="@c.Id"> @c.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-4">
+            <button type="submit">Save</button>
+        </div>
+    </div>
+</form>

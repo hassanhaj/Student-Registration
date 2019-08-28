@@ -1,0 +1,25 @@
+﻿@model CourseModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Edit @Model.Name</h1>
+
+<form method="post">
+    <div class="form-group col-4">
+        <label class="control-label" asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+    <div class="form-group col-4">
+        <label class="control-label" asp-for="Period"></label>
+        <input class="form-control" asp-for="Period" />
+    </div>
+    <div class="form-group col-4">
+        <button type="submit">
+            Save
+        </button>
+    </div>
+</form>
+
+
+@*<span asp-validation-for="Name" class="text-danger">*</span>*@

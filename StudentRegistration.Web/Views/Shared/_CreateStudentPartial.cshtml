@@ -1,0 +1,55 @@
+﻿@model StudentRegistration.Web.Entities.Student
+@using StudentRegistration.Web.Entities
+@{
+    var Countries = (List<Country>)ViewData["Countries"];
+}
+<form method="post" asp-action="Create" asp-controller="Students" class="form">
+    <div id="createModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>
+                        Create Students
+                    </h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="control-label" asp-for="Name"></label>
+                            <input class="form-control" asp-for="Name" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="control-label" asp-for="CountryId"></label>
+                            <select asp-for="CountryId" onchange="CountryChanged()">
+                                @foreach (var country in Countries)
+                                {
+                                    <option>
+                                        @country.Name
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="control-label" asp-for="NationalId"></label>
+                            <input class="form-control" asp-for="NationalId" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="control-label" asp-for="DateOfBirth"></label>
+                            <input class="form-control" asp-for="DateOfBirth" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="control-label" asp-for="Email"></label>
+                            <input class="form-control" asp-for="Email" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group col-4">
+                            <button type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

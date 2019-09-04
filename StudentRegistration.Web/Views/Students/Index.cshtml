@@ -1,28 +1,54 @@
 ﻿@model StudentsHomeModel
 @{
     ViewData["Title"] = "Index";
+    ViewData["Countries"] = Model.Countries;
 }
 
 <h1>
     Students
 </h1>
 
-<a asp-action="create">Create</a>
+<div>
+    <h3>Search</h3>
+    <form method="get">
+        <label asp-for="Name"></label>:
+        <input asp-for="Name" />
+        <button type="submit">Search</button>
 
-@foreach (var student in Model.Students)
-{
-    <div>
-        <ul>
-            <li>@student.Name</li>
-            <li>
-                <a href="students/edit/@student.Id">edit</a>
-                <form action="students/Delete/@student.Id" method="post">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-}
+        <div style="text-align: right;">
+            <label asp-for="PageNo"></label>:
+            <input asp-for="PageNo" />
+            <button type="submit">GO</button>
+        </div>
+    </form>
+</div>
 
-<a href="Students/Index?pageIndex=@(Model.PageNo + 1)">Next</a>
-<a href="Students/Index?pageIndex=@(Model.PageNo - 1)" class="@(Model.PageNo <=1 ? "disabled" : "")">Previous</a>
+<a data-toggle="modal" data-target="#createModal" href="#">Create</a>
+
+<table class="w-100">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>
+                    <a href="students/edit/@student.Id">Edit</a>
+                    |
+                    <a data-toggle="modal" data-target="#deleteModal_@student.Id" href="#">Delete</a>
+                    <partial name="_DeleteStudentPartial" model="@student"  />
+                    @Html.PartialAsync("_DeleteStudentPartial", student)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="index" asp-route-pageNo="@(Model.PageNo - 1)">Previous</a>
+<a asp-action="index" asp-route-pageNo="@(Model.PageNo + 1)">Next</a>
+
+<partial name="_CreateStudentPartial" for="Student" view-data="ViewData"  />

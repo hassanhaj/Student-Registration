@@ -1,4 +1,5 @@
-﻿using StudentRegistration.Web.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentRegistration.Web.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace StudentRegistration.Web.Services
         public IEnumerable<Country> GetCountries()
         {
             return _context.Countries.ToArray();
+        }
+        public async Task<IEnumerable<Country>> GetCountriesAsync()
+        {
+            return await _context.Countries.ToArrayAsync();
         }
     }
 }

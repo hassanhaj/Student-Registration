@@ -10,7 +10,7 @@ namespace StudentRegistration.Web.Services
     {
         private readonly RegistrationContext _context;
 
-        public StudentsService(RegistrationContext context)
+        public StudentsService(RegistrationContext context, CountryService e)
         {
             this._context = context;
         }
@@ -22,15 +22,17 @@ namespace StudentRegistration.Web.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<Student> GetPage(int pageIndex, int pageSize)
+        public IEnumerable<Student> GetPage(int pageNo, int pageSize, string name)
         {
-            var page = pageIndex - 1;
+            var page = pageNo - 1;
             var skip = page * pageSize;
 
             IQueryable<Student> query = _context.Students
+                 .Where(e => string.IsNullOrEmpty(name) 
+                 || e.Name.ToLower().Contains(name.ToLower()))
                  .AsNoTracking();
 
-            if (pageIndex > 0)
+            if (pageNo > 0)
             {
                 query = query
                     .Skip(skip)
@@ -61,7 +63,7 @@ namespace StudentRegistration.Web.Services
             entry.Property(e => e.Name).IsModified = true;
             entry.Property(e => e.NationalId).IsModified = true;
 
-                //var entity = _context.Students.Find(id);
+            //var entity = _context.Students.Find(id);
             //entity.Name = student.Name;
             //entity.NationalId = student.NationalId;
 
@@ -73,6 +75,11 @@ namespace StudentRegistration.Web.Services
             var student = new Student { Id = id };
             _context.Students.Remove(student);
             _context.SaveChanges();
+        }
+
+        internal void Deactivate(int id)
+        {
+            
         }
     }
 }

@@ -23,4 +23,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\HeadOffice\Controllers\" />
+    <Folder Include="Areas\HeadOffice\" />
+    <Folder Include="Areas\HeadOffice\Views\" />
+  </ItemGroup>
+
 </Project>

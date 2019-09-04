@@ -3,6 +3,7 @@
     ViewData["Title"] = "Index";
     ViewData["Countries"] = Model.Countries;
 }
+<partial name="_DeleteStudentPartial" />
 
 <h1>
     Students
@@ -40,9 +41,7 @@
                 <td>
                     <a href="students/edit/@student.Id">Edit</a>
                     |
-                    <a data-toggle="modal" data-target="#deleteModal_@student.Id" href="#">Delete</a>
-                    <partial name="_DeleteStudentPartial" model="@student"  />
-                    @Html.PartialAsync("_DeleteStudentPartial", student)
+                    <a onclick="confirmDelete(@student.Id)" href="#">Delete</a>
                 </td>
             </tr>
         }
@@ -51,4 +50,4 @@
 <a asp-action="index" asp-route-pageNo="@(Model.PageNo - 1)">Previous</a>
 <a asp-action="index" asp-route-pageNo="@(Model.PageNo + 1)">Next</a>
 
-<partial name="_CreateStudentPartial" for="Student" view-data="ViewData"  />
+<partial name="_CreateStudentPartial" for="Student" view-data="ViewData" />

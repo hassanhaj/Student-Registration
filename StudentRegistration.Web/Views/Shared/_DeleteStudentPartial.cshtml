@@ -1,7 +1,6 @@
-﻿@model StudentRegistration.Web.Entities.Student
-
-<form method="post" class="form-row" action="@Url.Action("Delete", new { id= @Model.Id})">
-    <div id="deleteModal_@Model.Id" class="modal" tabindex="-1" role="dialog">
+﻿
+<form method="post" class="form-row">
+    <div id="deleteModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,14 +11,49 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Are you sure you want to delete "@Model.Name" ?
+                        Are you sure you want to delete ?
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="submit" class="btn btn-primary" onclick="deleteStudent(); return false;">Delete</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script>
+    var idToDelete = 0;
+    function deleteStudent() {
+        $.ajax({
+            method: 'delete',
+            url: `/api/studentsapi/${idToDelete}`,
+            success: function (e) {
+                alert('student deleted');
+                $("#deleteModal").modal('toggle');
+                idToDelete = 0;
+                getStudents();
+            },
+            error: function (e) {
+                alert('error');
+            }
+        });
+    }
+    function confirmDelete(id) {
+        idToDelete = id;
+        $("#deleteModal").modal('show');
+    }
+    function getStudents() {
+        $.ajax({
+            method: 'get',
+            url: `/api/studentsapi`,
+            success: function (e) {
+                console.log(e);
+            },
+            error: function (e) {
+                alert('error');
+            }
+        });
+    }
+</script>

@@ -31,6 +31,7 @@ namespace StudentRegistration.Web.Controllers
                 // Countries = (await _countryService.GetCountries()).ToList()
             };
 
+
             model.Countries = await Task.Run(() =>
             {
                 return _countryService.GetCountries().ToList();
